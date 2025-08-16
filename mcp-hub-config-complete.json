@@ -1,0 +1,186 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/filesystem/dist/index.js",
+        "/home/daclab-work001/DEV/mcp",
+        "/home/daclab-work001",
+        "/tmp",
+        "/home/daclab-work001/Cloud-Drives"
+      ],
+      "env": {}
+    },
+    "memory": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/memory/dist/index.js"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "/home/daclab-work001/DEV/mcp/.mcp-memory.json"
+      }
+    },
+    "sequential-thinking": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/sequentialthinking/dist/index.js"
+      ],
+      "env": {}
+    },
+    "everything": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/everything/dist/index.js"
+      ],
+      "env": {}
+    },
+    "git": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_git"
+      ],
+      "env": {}
+    },
+    "time": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_time"
+      ],
+      "env": {}
+    },
+    "fetch": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_fetch"
+      ],
+      "env": {}
+    },
+    "github": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/github/dist/index.js"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "REPLACE_WITH_YOUR_GITHUB_TOKEN"
+      }
+    },
+    "google-drive": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/gdrive/dist/index.js"
+      ],
+      "env": {
+        "GDRIVE_CREDENTIALS_PATH": "/home/daclab-work001/DEV/mcp/.gdrive-server-credentials.json"
+      }
+    },
+    "google-maps": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/google-maps/dist/index.js"
+      ],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "REPLACE_WITH_YOUR_GOOGLE_MAPS_API_KEY"
+      }
+    },
+    "postgres": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/postgres/dist/index.js"
+      ],
+      "env": {
+        "DATABASE_URL": "postgresql://user:password@localhost:5432/database_name"
+      }
+    },
+    "redis": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/redis/dist/index.js"
+      ],
+      "env": {
+        "REDIS_URL": "redis://localhost:6379"
+      }
+    },
+    "sqlite": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/sqlite/dist/index.js"
+      ],
+      "env": {
+        "DATABASE_PATH": "/home/daclab-work001/DEV/mcp/.sqlite-db.db"
+      }
+    },
+    "puppeteer": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/puppeteer/dist/index.js"
+      ],
+      "env": {
+        "PUPPETEER_EXECUTABLE_PATH": "/usr/bin/chromium-browser"
+      }
+    }
+  },
+  "_setup_instructions": {
+    "filesystem": "✅ Ready - Configured with access to MCP project, home directory, tmp, and Cloud-Drives",
+    "memory": "✅ Ready - Configured with persistent memory file at /home/daclab-work001/DEV/mcp/.mcp-memory.json",
+    "sequential-thinking": "✅ Ready - No configuration required",
+    "everything": "✅ Ready - Reference server with multiple tools",
+    "git": "✅ Ready - Python server installed with virtual environment",
+    "time": "✅ Ready - Python server installed with virtual environment",
+    "fetch": "✅ Ready - Python server installed with virtual environment",
+    "github": "🔑 Requires GitHub Personal Access Token - Replace REPLACE_WITH_YOUR_GITHUB_TOKEN with your token",
+    "google-drive": "🔑 Requires Google OAuth - Set up Google Cloud project and OAuth credentials at /home/daclab-work001/DEV/mcp/.gdrive-server-credentials.json",
+    "google-maps": "🔑 Requires Google Maps API Key - Replace REPLACE_WITH_YOUR_GOOGLE_MAPS_API_KEY with your key",
+    "postgres": "🗄️ Requires PostgreSQL database - Update DATABASE_URL with your connection string",
+    "redis": "🗄️ Requires Redis server - Update REDIS_URL if not using default localhost:6379",
+    "sqlite": "🗄️ SQLite database will be created at /home/daclab-work001/DEV/mcp/.sqlite-db.db",
+    "puppeteer": "🌐 Requires Chromium browser - Install with: sudo apt install chromium-browser"
+  },
+  "_environment_setup_commands": {
+    "install_python_servers": [
+      "cd /home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/git && pip install -e .",
+      "cd /home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/time && pip install -e .",
+      "cd /home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/fetch && pip install -e ."
+    ],
+    "install_puppeteer_dependencies": [
+      "sudo apt update",
+      "sudo apt install chromium-browser"
+    ],
+    "github_token_setup": [
+      "# 1. Go to https://github.com/settings/tokens",
+      "# 2. Generate a new token with 'repo' scope",
+      "# 3. Replace REPLACE_WITH_YOUR_GITHUB_TOKEN in the config"
+    ],
+    "google_drive_setup": [
+      "# 1. Create Google Cloud Project",
+      "# 2. Enable Google Drive API",
+      "# 3. Create OAuth credentials",
+      "# 4. Run authentication: node /path/to/gdrive/dist auth",
+      "# 5. Credentials will be saved automatically"
+    ],
+    "google_maps_setup": [
+      "# 1. Go to Google Cloud Console",
+      "# 2. Enable Maps JavaScript API",
+      "# 3. Create API key",
+      "# 4. Replace REPLACE_WITH_YOUR_GOOGLE_MAPS_API_KEY in config"
+    ]
+  },
+  "_server_capabilities": {
+    "filesystem": ["file operations", "directory management", "search", "secure access control"],
+    "memory": ["persistent knowledge graph", "entities and relations", "search and retrieval"],
+    "sequential-thinking": ["structured problem solving", "thought sequences", "reasoning workflows"],
+    "everything": ["reference tools", "multiple capabilities", "testing and examples"],
+    "git": ["repository operations", "commit management", "branch operations", "diff analysis"],
+    "time": ["time conversion", "timezone handling", "date operations"],
+    "fetch": ["web content retrieval", "HTTP requests", "content conversion"],
+    "github": ["repository management", "issue tracking", "pull requests", "code search"],
+    "google-drive": ["file access", "search", "workspace document conversion"],
+    "google-maps": ["location services", "directions", "place details", "geocoding"],
+    "postgres": ["database querying", "schema inspection", "read-only access"],
+    "redis": ["key-value operations", "data structures", "caching"],
+    "sqlite": ["local database operations", "business intelligence", "SQL queries"],
+    "puppeteer": ["web scraping", "browser automation", "screenshot capture"]
+  }
+}

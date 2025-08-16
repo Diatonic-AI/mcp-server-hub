@@ -1,0 +1,76 @@
+{
+  "servers": {
+    "filesystem": {
+      "name": "filesystem",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/data"],
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "volumes": {
+        "/data": "./data"
+      }
+    },
+    "memory": {
+      "name": "memory",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "volumes": {
+        "/app/data": "./data/memory"
+      }
+    },
+    "git": {
+      "name": "git",
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "/repos"],
+      "env": {
+        "PYTHONPATH": "/app"
+      },
+      "volumes": {
+        "/repos": "./repos"
+      }
+    },
+    "fetch": {
+      "name": "fetch",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "time": {
+      "name": "time",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "everything": {
+      "name": "everything",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "sequentialthinking": {
+      "name": "sequentialthinking",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequentialthinking"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "router": {
+    "port": 8080,
+    "host": "0.0.0.0",
+    "logLevel": "info",
+    "autoStart": true,
+    "healthCheckInterval": 30000
+  }
+} 

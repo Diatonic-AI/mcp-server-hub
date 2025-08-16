@@ -1,0 +1,219 @@
+{
+  "mcpservers": {
+    "filesystem": {
+      "description": "Filesystem MCP server for file and directory operations",
+      "command": "podman",
+      "args": ["start", "-a", "mcp-filesystem-prod"],
+      "env": {
+        "NODE_ENV": "production",
+        "STDIO_ENABLED": "true"
+      },
+      "tools": [
+        {
+          "name": "list_directory",
+          "description": "List files and directories in a given path",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": { "type": "string" }
+            },
+            "required": ["path"]
+          }
+        },
+        {
+          "name": "edit_file",
+          "description": "Edit a file by applying text replacements",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": { "type": "string" },
+              "edits": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "oldText": { "type": "string" },
+                    "newText": { "type": "string" }
+                  },
+                  "required": ["oldText", "newText"]
+                }
+              },
+              "dryRun": { "type": "boolean" }
+            },
+            "required": ["path", "edits"]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "description": "In-memory key-value MCP server",
+      "command": "podman",
+      "args": ["start", "-a", "mcp-memory-prod"],
+      "env": {
+        "NODE_ENV": "production",
+        "STDIO_ENABLED": "true"
+      },
+      "tools": [
+        {
+          "name": "get",
+          "description": "Get a value by key",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "key": { "type": "string" }
+            },
+            "required": ["key"]
+          }
+        },
+        {
+          "name": "set",
+          "description": "Set a value by key",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "key": { "type": "string" },
+              "value": {}
+            },
+            "required": ["key", "value"]
+          }
+        }
+      ]
+    },
+    "fetch": {
+      "description": "HTTP fetch MCP server for web requests",
+      "command": "podman",
+      "args": ["start", "-a", "mcp-fetch-prod"],
+      "env": {
+        "NODE_ENV": "production",
+        "STDIO_ENABLED": "true"
+      },
+      "tools": [
+        {
+          "name": "fetch_url",
+          "description": "Fetch a URL and return the response",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "url": { "type": "string" },
+              "method": { "type": "string", "enum": ["GET", "POST", "PUT", "DELETE"] },
+              "headers": { "type": "object" },
+              "body": {}
+            },
+            "required": ["url"]
+          }
+        }
+      ]
+    },
+    "everything": {
+      "description": "Search MCP server for file and content search",
+      "command": "podman",
+      "args": ["start", "-a", "mcp-everything-prod"],
+      "env": {
+        "NODE_ENV": "production",
+        "STDIO_ENABLED": "true"
+      },
+      "tools": [
+        {
+          "name": "search_files",
+          "description": "Search for files matching a pattern",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": { "type": "string" },
+              "pattern": { "type": "string" }
+            },
+            "required": ["path", "pattern"]
+          }
+        }
+      ]
+    },
+    "sequentialthinking": {
+      "description": "Sequential thinking MCP server for reasoning tasks",
+      "command": "podman",
+      "args": ["start", "-a", "mcp-sequentialthinking-prod"],
+      "env": {
+        "NODE_ENV": "production",
+        "STDIO_ENABLED": "true"
+      },
+      "tools": [
+        {
+          "name": "plan_steps",
+          "description": "Generate a step-by-step plan for a given goal",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "goal": { "type": "string" }
+            },
+            "required": ["goal"]
+          }
+        }
+      ]
+    },
+    "time": {
+      "description": "Time MCP server for date and time operations",
+      "command": "podman",
+      "args": ["start", "-a", "mcp-time-prod"],
+      "env": {
+        "NODE_ENV": "production",
+        "STDIO_ENABLED": "true"
+      },
+      "tools": [
+        {
+          "name": "get_time",
+          "description": "Get the current time",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        },
+        {
+          "name": "format_time",
+          "description": "Format a timestamp",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "timestamp": { "type": "string" },
+              "format": { "type": "string" }
+            },
+            "required": ["timestamp", "format"]
+          }
+        }
+      ]
+    },
+    "git": {
+      "description": "Git MCP server for repository operations",
+      "command": "podman",
+      "args": ["start", "-a", "mcp-git-prod"],
+      "env": {
+        "PYTHONPATH": "/app",
+        "STDIO_ENABLED": "true"
+      },
+      "tools": [
+        {
+          "name": "clone_repo",
+          "description": "Clone a git repository",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "url": { "type": "string" },
+              "branch": { "type": "string" }
+            },
+            "required": ["url"]
+          }
+        },
+        {
+          "name": "list_branches",
+          "description": "List branches in a repository",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "repo_path": { "type": "string" }
+            },
+            "required": ["repo_path"]
+          }
+        }
+      ]
+    }
+  }
+}

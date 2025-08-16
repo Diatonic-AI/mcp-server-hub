@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  mcp-node:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.node
+    container_name: mcp-node-servers
+    environment:
+      - NODE_ENV=production
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+    volumes:
+      - mcp-data:/app/data
+      - mcp-logs:/app/logs
+      - ./configs:/app/configs:ro
+      - ./.env:/app/.env:ro
+    networks:
+      - mcp-network
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+
+  mcp-python:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.python
+    container_name: mcp-python-servers
+    environment:
+      - PYTHONPATH=/app
+      - VIRTUAL_ENV=/app/venv
+    volumes:
+      - mcp-data:/app/data
+      - mcp-logs:/app/logs
+      - ./configs:/app/configs:ro
+      - ./.env:/app/.env:ro
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: mcp-postgres
+    environment:
+      - POSTGRES_DB=mcp_database
+      - POSTGRES_USER=mcp_user
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+    secrets:
+      - postgres_password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - mcp-network
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: mcp-redis
+    command: redis-server --requirepass $(cat /run/secrets/redis_password)
+    secrets:
+      - redis_password
+    volumes:
+      - redis-data:/data
+    networks:
+      - mcp-network
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  mcp-hub:
+    image: node:18-alpine
+    container_name: mcp-hub
+    working_dir: /app
+    command: ["node", "hub-server.js"]
+    environment:
+      - NODE_ENV=production
+      - MCP_CONFIG_PATH=/app/configs/mcp-hub-config-docker.json
+    volumes:
+      - mcp-data:/app/data
+      - mcp-logs:/app/logs
+      - ./configs:/app/configs:ro
+      - ./hub-server.js:/app/hub-server.js:ro
+    networks:
+      - mcp-network
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - mcp-node
+      - mcp-python
+
+networks:
+  mcp-network:
+    driver: bridge
+
+volumes:
+  mcp-data:
+    driver: local
+  mcp-logs:
+    driver: local
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+  redis_password:
+    file: ./secrets/redis_password.txt

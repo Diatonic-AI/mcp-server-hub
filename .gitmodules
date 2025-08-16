@@ -1,0 +1,6 @@
+[submodule "typescript-sdk"]
+	path = typescript-sdk
+	url = https://github.com/modelcontextprotocol/typescript-sdk.git
+[submodule "mcp-hub-mcp"]
+	path = mcp-hub-mcp
+	url = https://github.com/Diatonic-AI/mcp-hub-mcp.git

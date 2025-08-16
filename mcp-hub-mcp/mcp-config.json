@@ -1,0 +1,153 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/filesystem/dist/index.js",
+        "/home/daclab-work001/DEV/mcp",
+        "/home/daclab-work001",
+        "/tmp",
+        "/home/daclab-work001/Cloud-Drives"
+      ],
+      "env": {}
+    },
+    "memory": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/memory/dist/index.js"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "/home/daclab-work001/DEV/mcp/.mcp-memory.json"
+      }
+    },
+    "sequential-thinking": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/sequentialthinking/dist/index.js"
+      ],
+      "env": {}
+    },
+    "everything": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/everything/dist/index.js"
+      ],
+      "env": {}
+    },
+    "git": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_git"
+      ],
+      "env": {}
+    },
+    "time": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_time"
+      ],
+      "env": {}
+    },
+    "fetch": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_fetch"
+      ],
+      "env": {}
+    },
+    "read-website-fast": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/read-website-fast/bin/mcp-read-website.js"
+      ],
+      "env": {}
+    },
+    "wix-mcp-remote": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@wix/mcp-remote",
+        "https://mcp.wix.com/sse"
+      ],
+      "env": {
+        "HOME": "/home/daclab-work001",
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      }
+    },
+    "github": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/github/dist/index.js"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
+      }
+    },
+    "google-drive": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/gdrive/dist/index.js"
+      ],
+      "env": {
+        "GDRIVE_CREDENTIALS_PATH": "/home/daclab-work001/DEV/mcp/.credentials/.gdrive-server-credentials.json"
+      }
+    },
+    "google-maps": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/google-maps/dist/index.js"
+      ],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "${GOOGLE_MAPS_API_KEY}"
+      }
+    },
+    "postgres": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/postgres/dist/index.js",
+        "postgresql://lsg_prod_admin:#>$3FW85wB2bqYkK:46^g[5QSEn_u2:A@localhost:5433/livesmartgrowth_prod"
+      ],
+      "env": {}
+    },
+    "puppeteer": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/puppeteer/dist/index.js"
+      ],
+      "env": {
+        "PUPPETEER_EXECUTABLE_PATH": "/usr/bin/chromium-browser"
+      }
+    },
+    "database-insert": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_db_insert",
+        "--enable-debug",
+        "--max-batch-size", "1000",
+        "--connection-timeout", "30"
+      ],
+      "env": {
+        "DEFAULT_POSTGRES_URL": "postgresql://mcp_data_admin:McP_D4ta_Pr0d_2024!@10.0.0.10:5433/mcp_data_prod",
+        "DEFAULT_MONGODB_URL": "mongodb://api_admin:AP1_Pr0d_2024!@10.0.0.10:27017/api_data_prod",
+        "DEFAULT_REDIS_URL": "redis://:C4ch3_Pr0d_2024!@10.0.0.10:6379/0",
+        "DEFAULT_MYSQL_URL": "mysql://webapp_admin:W3b_App5_Pr0d_2024!@10.0.0.10:3306/web_applications_prod",
+        "DEFAULT_SQLITE_URL": "sqlite:///srv/databases/prod/sqlite/development.db",
+        "POSTGRES_LSG_PROD_URL": "postgresql://lsg_prod_admin:#>$3FW85wB2bqYkK:46^g[5QSEn_u2:A@10.0.0.10:5433/livesmartgrowth_prod",
+        "POSTGRES_JSONRPC_URL": "postgresql://jsonrpc_admin:J50n_RpC_Pr0d_2024!@10.0.0.10:5433/jsonrpc_logs_prod",
+        "MCP_DB_INSERT_MAX_BATCH_SIZE": "1000",
+        "MCP_DB_INSERT_CONNECTION_TIMEOUT": "30",
+        "MCP_DB_INSERT_ENABLE_DEBUG": "true",
+        "HTTP_PROXY": "http://10.0.0.10:3128",
+        "HTTPS_PROXY": "http://10.0.0.10:3128",
+        "NODE_ENV": "production",
+        "ENVIRONMENT": "production",
+        "PROXY_ENABLED": "true",
+        "LOAD_BALANCER_ENABLED": "true"
+      }
+    }
+  }
+}

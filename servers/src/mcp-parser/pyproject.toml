@@ -1,0 +1,46 @@
+[project]
+name = "mcp-server-db-insert"
+version = "0.1.0"
+description = "A Model Context Protocol server for parsing JSON-RPC responses and inserting data into databases"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "MCP Database Server" }]
+keywords = ["mcp", "database", "jsonrpc", "postgresql", "mongodb", "sqlite", "redis", "mysql"]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "mcp>=1.1.3",
+    "pydantic>=2.0.0",
+    "psycopg2-binary>=2.9.0",  # PostgreSQL
+    "pymongo>=4.0.0",          # MongoDB
+    "redis>=4.0.0",            # Redis
+    "mysql-connector-python>=8.0.0",  # MySQL
+    "sqlalchemy>=2.0.0",       # SQL abstraction
+    "asyncpg>=0.29.0",         # Async PostgreSQL
+    "motor>=3.0.0",            # Async MongoDB
+    "aiosqlite>=0.19.0",       # Async SQLite
+    "redis[hiredis]>=4.0.0",   # Redis with C extension
+]
+
+[project.scripts]
+mcp-server-db-insert = "mcp_server_db_insert:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pyright>=1.1.389", 
+    "ruff>=0.7.3",
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0"
+]

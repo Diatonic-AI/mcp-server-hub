@@ -1,0 +1,124 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers/src/filesystem/dist/index.js",
+        "/app/data",
+        "/app",
+        "/tmp"
+      ],
+      "env": {}
+    },
+    "memory": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers/src/memory/dist/index.js"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "/app/data/.mcp-memory.json"
+      }
+    },
+    "sequential-thinking": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers/src/sequentialthinking/dist/index.js"
+      ],
+      "env": {}
+    },
+    "everything": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers/src/everything/dist/index.js"
+      ],
+      "env": {}
+    },
+    "git": {
+      "command": "/app/venv/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_git"
+      ],
+      "env": {}
+    },
+    "time": {
+      "command": "/app/venv/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_time"
+      ],
+      "env": {}
+    },
+    "fetch": {
+      "command": "/app/venv/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_fetch"
+      ],
+      "env": {}
+    },
+    "github": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers-archived/src/github/dist/index.js"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "google-drive": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers-archived/src/gdrive/dist/index.js"
+      ],
+      "env": {
+        "GDRIVE_CREDENTIALS_PATH": "/app/data/.credentials/.gdrive-server-credentials.json"
+      }
+    },
+    "google-maps": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers-archived/src/google-maps/dist/index.js"
+      ],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "${GOOGLE_MAPS_API_KEY}"
+      }
+    },
+    "postgres": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers-archived/src/postgres/dist/index.js"
+      ],
+      "env": {
+        "DATABASE_URL": "postgresql://mcp_user:${POSTGRES_PASSWORD}@postgres:5432/mcp_database"
+      }
+    },
+    "redis": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers-archived/src/redis/dist/index.js"
+      ],
+      "env": {
+        "REDIS_URL": "redis://:${REDIS_PASSWORD}@redis:6379"
+      }
+    },
+    "sqlite": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers-archived/src/sqlite/dist/index.js"
+      ],
+      "env": {
+        "DATABASE_PATH": "/app/data/sqlite/mcp.db"
+      }
+    },
+    "puppeteer": {
+      "command": "node",
+      "args": [
+        "/app/servers/src/mcp-servers-archived/src/puppeteer/dist/index.js"
+      ],
+      "env": {
+        "PUPPETEER_EXECUTABLE_PATH": "/usr/bin/chromium-browser"
+      }
+    }
+  }
+}

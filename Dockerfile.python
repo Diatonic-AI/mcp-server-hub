@@ -1,0 +1,49 @@
+# Dockerfile for Python MCP Servers
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app directory
+WORKDIR /app
+
+# Copy Python requirements and setup scripts
+COPY requirements.txt ./
+COPY setup-python-servers.sh ./
+COPY servers/src/mcp-servers/ ./servers/src/mcp-servers/
+
+# Create virtual environment and install dependencies
+RUN python -m venv /app/venv && \
+    . /app/venv/bin/activate && \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+# Install MCP servers in development mode
+RUN . /app/venv/bin/activate && \
+    cd servers/src/mcp-servers/src/git && pip install -e . && \
+    cd ../../time && pip install -e . && \
+    cd ../fetch && pip install -e .
+
+# Create non-root user
+RUN groupadd -g 1001 mcpuser && \
+    useradd -r -u 1001 -g mcpuser -s /bin/bash mcpuser
+
+# Create data directories
+RUN mkdir -p /app/data/.mcp-memory \
+             /app/data/.credentials \
+             /app/logs && \
+    chown -R mcpuser:mcpuser /app
+
+USER mcpuser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD /app/venv/bin/python --version || exit 1
+
+EXPOSE 3001
+
+CMD ["/app/venv/bin/python", "--version"]

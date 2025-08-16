@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "local": {
+      "command": "mcp-server",
+      "args": ["--stdio"],
+      "env": {
+        "MCP_PROXY": "http://10.0.0.10:8118"
+      }
+    },
+    "remote-dac00": {
+      "transport": "http",
+      "url": "http://10.0.0.6:8010"
+    },
+    "remote-dac01": {
+      "transport": "http", 
+      "url": "http://10.0.0.7:8010"
+    },
+    "websocket": {
+      "transport": "websocket",
+      "url": "ws://10.0.0.10:8002/mcp"
+    }
+  },
+  "proxy": {
+    "http": "http://10.0.0.10:8118",
+    "bypass": ["localhost", "10.0.0.6", "10.0.0.7", "*.local"]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@modelcontextprotocol/server-filesystem",
+        "/home/daclab-work001/DEV/mcp",
+        "/tmp"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "wix-mcp-remote": {
+      "command": "npx",
+      "args": [
+        "@wix/mcp-remote@latest",
+        "https://mcp.wix.com/mcp"
+      ],
+      "env": {
+        "WIX_MCP_CLIENT_ID": "wix-client-1",
+        "WIX_MCP_AUTH_TOKEN": "wix-auth-token-001"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "mcp-hub": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/mcp-hub-mcp/dist/index.js",
+        "--config-path",
+        "/home/daclab-work001/DEV/mcp/mcp-hub-config-complete.json"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}

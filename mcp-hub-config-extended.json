@@ -1,0 +1,62 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/filesystem/dist/index.js",
+        "/home/daclab-work001/DEV/mcp",
+        "/home/daclab-work001",
+        "/tmp",
+        "/home/daclab-work001/Cloud-Drives"
+      ],
+      "env": {}
+    },
+    "memory": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/memory/dist/index.js"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "/home/daclab-work001/DEV/mcp/.mcp-memory.json"
+      }
+    },
+    "sequential-thinking": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/sequentialthinking/dist/index.js"
+      ],
+      "env": {}
+    },
+    "everything": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/everything/dist/index.js"
+      ],
+      "env": {}
+    },
+    "git": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_git"
+      ],
+      "env": {}
+    },
+    "time": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_time"
+      ],
+      "env": {}
+    },
+    "fetch": {
+      "command": "/home/daclab-work001/DEV/mcp/mcp-python-env/bin/python",
+      "args": [
+        "-m",
+        "mcp_server_fetch"
+      ],
+      "env": {}
+    }
+  }
+}

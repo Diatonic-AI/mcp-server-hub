@@ -1,0 +1,133 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/filesystem/dist/index.js"
+      ],
+      "env": {
+        "ALLOWED_DIRECTORIES": "/home/daclab-work001,/tmp"
+      }
+    },
+    "memory": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/memory/dist/index.js"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/sequentialthinking/dist/index.js"
+      ]
+    },
+    "everything": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/everything/dist/index.js"
+      ]
+    },
+    "git": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/git/dist/index.js"
+      ]
+    },
+    "time": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/time/dist/index.js"
+      ]
+    },
+    "fetch": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/fetch/dist/index.js"
+      ]
+    },
+    "github": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/github/dist/index.js"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
+      }
+    },
+    "google-drive": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/gdrive/dist/index.js"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/path/to/your/credentials.json"
+      }
+    },
+    "google-maps": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/google-maps/dist/index.js"
+      ],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "your_google_maps_api_key_here"
+      }
+    },
+    "postgres": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/postgres/dist/index.js"
+      ],
+      "env": {
+        "DATABASE_URL": "postgresql://user:password@localhost:5432/dbname"
+      }
+    },
+    "redis": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/redis/dist/index.js"
+      ],
+      "env": {
+        "REDIS_URL": "redis://localhost:6379"
+      }
+    },
+    "sqlite": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/sqlite/dist/index.js"
+      ],
+      "env": {
+        "DATABASE_PATH": "/path/to/your/database.db"
+      }
+    },
+    "puppeteer": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers-archived/src/puppeteer/dist/index.js"
+      ]
+    }
+  },
+  "_configuration_notes": {
+    "filesystem": "Provides secure file operations with configurable access controls",
+    "memory": "Knowledge graph-based persistent memory system",
+    "sequential-thinking": "Dynamic and reflective problem-solving through thought sequences",
+    "everything": "Reference/test server with prompts, resources, and tools",
+    "git": "Tools to read, search, and manipulate Git repositories",
+    "time": "Time and timezone conversion capabilities",
+    "fetch": "Web content fetching and conversion for efficient LLM usage",
+    "github": "Repository management, file operations, and GitHub API integration - requires GITHUB_PERSONAL_ACCESS_TOKEN",
+    "google-drive": "File access and search capabilities for Google Drive - requires GOOGLE_APPLICATION_CREDENTIALS",
+    "google-maps": "Location services, directions, and place details - requires GOOGLE_MAPS_API_KEY",
+    "postgres": "Read-only database access with schema inspection - requires DATABASE_URL",
+    "redis": "Interact with Redis key-value stores - requires REDIS_URL",
+    "sqlite": "Database interaction and business intelligence capabilities - requires DATABASE_PATH",
+    "puppeteer": "Browser automation and web scraping"
+  },
+  "_setup_instructions": {
+    "github": "Set GITHUB_PERSONAL_ACCESS_TOKEN environment variable with your GitHub token",
+    "google-drive": "Set GOOGLE_APPLICATION_CREDENTIALS to path of your Google service account JSON file",
+    "google-maps": "Set GOOGLE_MAPS_API_KEY environment variable with your Google Maps API key",
+    "postgres": "Set DATABASE_URL environment variable with your PostgreSQL connection string",
+    "redis": "Set REDIS_URL environment variable with your Redis connection string (default: redis://localhost:6379)",
+    "sqlite": "Set DATABASE_PATH environment variable with path to your SQLite database file"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "mcp-server-hub",
+  "version": "1.0.0",
+  "description": "Cross-platform MCP Server Hub with containerized deployment",
+  "main": "credential-manager.js",
+  "scripts": {
+    "setup": "node credential-manager.js generate",
+    "start": "node credential-manager.js status",
+    "build": "cd servers && npm run build-all",
+    "test": "npm run build && npm run validate",
+    "validate": "node credential-manager.js validate",
+    "docker:up": "docker-compose -f platform-configs/docker/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f platform-configs/docker/docker-compose.yml down",
+    "docker:logs": "docker-compose -f platform-configs/docker/docker-compose.yml logs -f"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DiatomicAI/mcp-server-hub.git"
+  },
+  "keywords": [
+    "mcp",
+    "server",
+    "cross-platform",
+    "docker",
+    "containerization",
+    "ai",
+    "automation"
+  ],
+  "author": "Diatonic AI",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ]
+}

@@ -1,0 +1,38 @@
+services:
+  # Obsidian MCP Server
+  obsidian-mcp:
+    build:
+      context: ../servers/src/obsidian-mcp
+    image: obsidian-mcp:latest
+    container_name: obsidian-mcp-server
+    stdin_open: true
+    tty: true
+    volumes:
+      - /home/daclab-work001/Documents/steve-heaney-investments:/vault:ro
+    command: ["/vault"]
+    networks:
+      - mcp-network
+    restart: unless-stopped
+
+  # PostgreSQL MCP Server
+  postgres-mcp:
+    build:
+      context: ../servers/src/postgres-mcp
+    image: postgres-mcp:latest
+    container_name: postgres-mcp-server
+    stdin_open: true
+    tty: true
+    environment:
+      - DATABASE_URI=${POSTGRES_DATABASE_URI}
+    command: ["--access-mode=restricted"]
+    networks:
+      - mcp-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    ports:
+      - "8001:8000"  # For SSE transport if needed
+
+networks:
+  mcp-network:
+    driver: bridge

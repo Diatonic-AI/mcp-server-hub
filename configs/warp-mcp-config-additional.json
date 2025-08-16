@@ -1,0 +1,53 @@
+{
+  "mcpServers": {
+    "obsidian-mcp": {
+      "command": "python3",
+      "args": [
+        "/home/daclab-work001/Cloud-Drives/Minuteman-Press/OBSIDIAN_VAULTS/Steve-Heaney-Investments/mcp-wrapper.py"
+      ],
+      "env": {
+        "VAULT_PATH": "/home/daclab-work001/Cloud-Drives/Minuteman-Press/OBSIDIAN_VAULTS/Steve-Heaney-Investments",
+        "CLIENT_ID": "steve-heaney-investments",
+        "MCP_PORT": "8091"
+      },
+      "working_directory": "/home/daclab-work001/Cloud-Drives/Minuteman-Press/OBSIDIAN_VAULTS/Steve-Heaney-Investments",
+      "start_on_launch": true
+    },
+    "postgres-mcp": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--name",
+        "postgres-mcp-client-1",
+        "-e",
+        "DATABASE_URI",
+        "-e",
+        "MCP_CLIENT_ID=postgres-client-1",
+        "-e",
+        "MCP_AUTH_TOKEN=postgres-auth-token-001",
+        "postgres-mcp:latest",
+        "--access-mode=restricted"
+      ],
+      "env": {
+        "DATABASE_URI": "postgresql://mcp_server:mcp_secure_pass_2024!@host.docker.internal:5432/wix_main"
+      },
+      "working_directory": null,
+      "start_on_launch": false
+    },
+    "wix-mcp-remote": {
+      "command": "npx",
+      "args": [
+        "@wix/mcp-remote@latest",
+        "https://mcp.wix.com/mcp"
+      ],
+      "env": {
+        "WIX_MCP_CLIENT_ID": "wix-client-1",
+        "WIX_MCP_AUTH_TOKEN": "wix-auth-token-001"
+      },
+      "working_directory": "/tmp",
+      "start_on_launch": false
+    }
+  }
+}

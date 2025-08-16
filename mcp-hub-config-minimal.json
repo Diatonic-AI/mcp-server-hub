@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/filesystem/dist/index.js",
+        "/home/daclab-work001/DEV/mcp",
+        "/home/daclab-work001",
+        "/tmp"
+      ]
+    },
+    "memory": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/memory/dist/index.js"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/sequentialthinking/dist/index.js"
+      ]
+    },
+    "everything": {
+      "command": "node",
+      "args": [
+        "/home/daclab-work001/DEV/mcp/servers/src/mcp-servers/src/everything/dist/index.js"
+      ]
+    }
+  }
+}

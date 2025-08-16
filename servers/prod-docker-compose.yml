@@ -1,0 +1,231 @@
+version: '3.8'
+
+services:
+  # MCP Router - Central Management
+  mcp-router:
+    build:
+      context: ./router
+      dockerfile: Dockerfile
+    container_name: mcp-router-prod
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - MCP_SERVERS_CONFIG=/app/config/servers.json
+      - AUTO_SHUTDOWN_TIMEOUT=300
+      - HEALTH_CHECK_INTERVAL=30
+    volumes:
+      - /mnt/environments/prod/mcp-system/config:/app/config:ro
+      - /mnt/environments/prod/mcp-system/logs:/app/logs
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
+  # TypeScript-based MCP Servers (On-Demand)
+  mcp-filesystem:
+    image: mcp-filesystem:latest
+    container_name: mcp-filesystem-prod
+    volumes:
+      - /mnt/environments/prod/mcp-system/data:/data:ro
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: "no"  # On-demand only
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    profiles:
+      - on-demand
+
+  mcp-memory:
+    image: mcp-memory:latest
+    container_name: mcp-memory-prod
+    volumes:
+      - /mnt/environments/prod/mcp-system/data/memory:/app/data
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: "no"  # On-demand only
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    profiles:
+      - on-demand
+
+  mcp-fetch:
+    image: mcp-fetch:latest
+    container_name: mcp-fetch-prod
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: "no"  # On-demand only
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    profiles:
+      - on-demand
+
+  mcp-everything:
+    image: mcp-everything:latest
+    container_name: mcp-everything-prod
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: "no"  # On-demand only
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    profiles:
+      - on-demand
+
+  mcp-sequentialthinking:
+    image: mcp-sequentialthinking:latest
+    container_name: mcp-sequentialthinking-prod
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: "no"  # On-demand only
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    profiles:
+      - on-demand
+
+  mcp-time:
+    image: mcp-time:latest
+    container_name: mcp-time-prod
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: "no"  # On-demand only
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    profiles:
+      - on-demand
+
+  # Python-based MCP Servers (On-Demand)
+  mcp-git:
+    image: mcp-git:latest
+    container_name: mcp-git-prod
+    volumes:
+      - /mnt/environments/prod/mcp-system/repos:/repos:ro
+    environment:
+      - PYTHONPATH=/app
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: "no"  # On-demand only
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    profiles:
+      - on-demand
+
+  # Monitoring (Always Running)
+  mcp-monitor:
+    image: grafana/grafana:latest
+    container_name: mcp-monitor-prod
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - /mnt/environments/prod/mcp-system/volumes/grafana:/var/lib/grafana
+      - /mnt/environments/prod/mcp-system/config/grafana/provisioning:/etc/grafana/provisioning:ro
+    restart: unless-stopped
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
+  # Resource Manager (Always Running)
+  mcp-resource-manager:
+    build:
+      context: ./resource-manager
+      dockerfile: Dockerfile
+    container_name: mcp-resource-manager-prod
+    environment:
+      - PROD_ROOT=/mnt/environments/prod/mcp-system
+      - AUTO_SHUTDOWN_TIMEOUT=300
+      - HEALTH_CHECK_INTERVAL=30
+    volumes:
+      - /var/run/podman/podman.sock:/var/run/podman/podman.sock
+      - /mnt/environments/prod/mcp-system/logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - mcp-prod-network
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.25'
+
+networks:
+  mcp-prod-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+
+volumes:
+  grafana-storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/environments/prod/mcp-system/volumes/grafana 

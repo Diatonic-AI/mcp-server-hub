@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "test": {
+      "command": "echo",
+      "args": ["{\"result\": \"test server response\"}"],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,175 @@
+version: '3.8'
+
+services:
+  # TypeScript-based MCP Servers
+  mcp-filesystem:
+    build:
+      context: ./servers/src/filesystem
+      dockerfile: Dockerfile
+    image: mcp-filesystem:latest
+    container_name: mcp-filesystem-prod
+    volumes:
+      - ./data:/data:ro
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  mcp-memory:
+    build:
+      context: ./servers/src/memory
+      dockerfile: Dockerfile
+    image: mcp-memory:latest
+    container_name: mcp-memory-prod
+    volumes:
+      - ./data/memory:/app/data
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  mcp-fetch:
+    build:
+      context: ./servers/src/fetch
+      dockerfile: Dockerfile
+    image: mcp-fetch:latest
+    container_name: mcp-fetch-prod
+    environment:
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  mcp-everything:
+    build:
+      context: ./servers/src/everything
+      dockerfile: Dockerfile
+    image: mcp-everything:latest
+    container_name: mcp-everything-prod
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  mcp-sequentialthinking:
+    build:
+      context: ./servers/src/sequentialthinking
+      dockerfile: Dockerfile
+    image: mcp-sequentialthinking:latest
+    container_name: mcp-sequentialthinking-prod
+    environment:
+      - NODE_ENV=production
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  mcp-time:
+    build:
+      context: ./servers/src/time
+      dockerfile: Dockerfile
+    image: mcp-time:latest
+    container_name: mcp-time-prod
+    environment:
+      - STDIO_ENABLED=true
+      - LOCAL_TIMEZONE=America/Chicago
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # Python-based MCP Servers
+  mcp-git:
+    build:
+      context: ./servers/src/git
+      dockerfile: Dockerfile
+    image: mcp-git:latest
+    container_name: mcp-git-prod
+    volumes:
+      - ./repos:/repos:ro
+    environment:
+      - PYTHONPATH=/app
+      - STDIO_ENABLED=true
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # MCP Router/Proxy for centralized management
+  mcp-router:
+    build:
+      context: ./router
+      dockerfile: Dockerfile
+    container_name: mcp-router
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - MCP_SERVERS_CONFIG=/app/config/servers.json
+    volumes:
+      - ./router/config:/app/config
+      - ./router/logs:/app/logs
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # Monitoring and logging
+  mcp-monitor:
+    image: grafana/grafana:latest
+    container_name: mcp-monitor
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # Log aggregation
+  mcp-logs:
+    image: elasticsearch:8.11.0
+    container_name: mcp-logs
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  grafana-storage:
+  elasticsearch-data: 
