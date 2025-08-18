@@ -6,7 +6,7 @@
 
 #### 1. Google Maps Server ✅ **PRODUCTION READY**
 - **Status**: ✅ Fully operational
-- **API Key**: `${GOOGLE_MAPS_API_KEY}`
+- **API Key**: `${GOOGLE_MAPS_API_KEY}` (secured)
 - **Testing**: ✅ Successfully geocoded addresses
 - **Tools Available**: 7 tools (geocoding, places search, directions, elevation, etc.)
 - **Integration**: Ready for immediate MCP Hub integration
